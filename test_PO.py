@@ -75,6 +75,7 @@ try:
     vendor_selected.click()
     print("✅ Vendor selected successfully")
 
+    # Switch back to main window
     driver.switch_to.window(main_window)
     driver.switch_to.default_content()
     driver.switch_to.frame(0)
@@ -139,6 +140,12 @@ try:
     invoice_number_field.send_keys(unique_invoice_number)
     print("✅ Invoice number entered successfully")
     
+    item_lookup_img = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.ID, "cfl_u_polines_itemcodeT1"))
+    )
+    time.sleep(1)
+    item_lookup_img.click()
+    print("✅ Item Code lookup opened successfully")    
 
 finally:
     time.sleep(10)
