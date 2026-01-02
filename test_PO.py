@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.service import Service
 from login import login
 import time
 import random
+from datetime import datetime
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
@@ -127,6 +128,17 @@ try:
 
     for i, opt in enumerate(select_contact_person.options):
         print(f"Option {i}: '{opt.text}' | selected={opt.is_selected()}")
+
+    unique_invoice_number = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+    print(f"Generated unique invoice number: {unique_invoice_number}")
+
+    invoice_number_field = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "df_u_po_refno"))
+    )
+    invoice_number_field.clear()
+    invoice_number_field.send_keys(unique_invoice_number)
+    print("✅ Invoice number entered successfully")
+    
 
 finally:
     time.sleep(10)
