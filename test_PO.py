@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 
 
 # Setup browser
@@ -162,6 +163,7 @@ try:
     select_filter.click()
     print("✅ Item Code filtered from popup")
 
+
     try:
         # Generate a random number between 1 and 54
         random_row = random.randint(1, 54)
@@ -184,6 +186,115 @@ try:
     except TimeoutException:
         print("❌ Failed to select an Acer item. Check the IDs or page state.")
 
+    # Switch back to main window
+    driver.switch_to.window(main_window)
+    driver.switch_to.default_content()
+    driver.switch_to.frame(0)
+    driver.switch_to.frame("iframeBody")
+    print("✅ Switched back to main window successfully after Item Code selection")
+
+
+    try:
+        # Add random Quantity
+        quantity_field = WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.ID, "df_u_polines_qtyT1"))
+        )
+        quantity_field.click()
+        time.sleep(1)
+        random_quantity = random.randint(1, 50)
+        quantity_field.clear()  
+        quantity_field.send_keys(str(random_quantity))
+        quantity_field.send_keys(Keys.TAB)
+        print(f"✅ Entered random quantity: {random_quantity}")
+
+         # Item name (wait until populated)
+        item_name_field = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.ID, "df_u_polines_itemdescT1"))
+        )
+        wait.until(lambda d: item_name_field.get_attribute("value") != "")
+        item_name = item_name_field.get_attribute("value")
+        print(f"ℹ️ Item name detected: {item_name}")
+
+
+        # Move to the unit price field
+        unit_price_field = WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.ID, "df_u_polines_unitpriceT1"))  
+        )
+
+        # Set the unit price based on the item name
+        if "NOTEBOOK" in item_name.upper():
+            random_price = random.randint(20000, 60000)
+        else:
+            random_price = 0
+
+        unit_price_field.clear()
+        unit_price_field.send_keys(str(random_price))
+        time.sleep(3)
+        unit_price_field.send_keys(Keys.ENTER)
+        print(f"✅ Entered unit price: {random_price}")
+
+    except TimeoutException:
+        print("❌ Failed to locate one of the fields. Check the IDs or page state.")
+
+
+    try:
+        # Enter details to logistics tab
+        logistics_tab = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//a[text()='Logistics']"))
+        )
+        time.sleep(3)
+        logistics_tab.click()
+
+        # Enter vendor address
+        vendor_address = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "df_u_po_vendoraddress"))
+        )
+        vendor_address.clear()
+        vendor_address.send_keys("Mandaluyong")
+
+        # Enter Shipping Method
+        shipping_method = driver.find_element(By.ID, "df_u_po_shipvia")
+        shipping_method.clear()
+        shipping_method.send_keys("Cargo")
+
+    except TimeoutException:
+        print("❌ Failed to enter logistics details. Check the IDs or page state.")
+
+
+    # Enter Accounting Details
+    try:
+        accounting_tab = WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.ID, "tab1nav3"))
+        )
+        time.sleep(3)
+        accounting_tab.click()
+
+        # Enter Site
+        site_field = WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.ID, "df_u_po_paymentsite"))
+        )
+        site_field.clear()
+        site_field.send_keys("site")
+        print("✅ Accounting details entered successfully")
+
+    except TimeoutException:
+        print("❌ Failed to enter accounting details. Check the IDs or page state.")
+
+    try:
+        driver.switch_to.default_content()
+        outer_frame = WebDriverWait(driver, 10).until(
+            EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//frame"))
+        )
+
+        # Locate add button
+        driver.find_element(By.NAME, "btnAdd']").click()
+        print("✅ Add button clicked successfully to save the Purchase Order")
+
+    except TimeoutException:
+        print("❌ Failed to click Add button. Check the IDs or page state.")
+    except Exception as e:
+        print("❌ Test Failed")
+        print(e)
 
 
 finally:
