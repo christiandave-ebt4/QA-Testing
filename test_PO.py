@@ -3,10 +3,12 @@ from selenium.webdriver.firefox.service import Service
 from login import login
 import time
 import random
+from window_utils import switch_to_popup
 from datetime import datetime
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium.common.exceptions import TimeoutException
 
 
 # Setup browser
@@ -42,38 +44,30 @@ try:
     driver.switch_to.frame(0)
     driver.switch_to.frame("iframeBody")
 
-    vendor_lookup_img = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.ID, "cfl_u_po_vendorcode"))
-    )
-    time.sleep(1)
-    vendor_lookup_img.click()
-
-    print("✅ Vendor lookup opened successfully")
-    
-    # Handle Popup Window
-    all_windows =  driver.window_handles
-    
+    # Save main window once
     main_window = driver.current_window_handle
-    wait.until(lambda d: len(d.window_handles) > 1)
-    popup_window = [w for w in all_windows if w != main_window][0]
 
-    driver.switch_to.window(popup_window)
+    # Select cfl to open vendor lookup popup
+    vendor_lookup_img = wait.until(
+        EC.element_to_be_clickable((By.ID, "cfl_u_po_vendorcode"))
+    )
+    time.sleep(3)
+    vendor_lookup_img.click()
+    print("✅ Vendor lookup opened")
 
-    print("✅ Switched to popup window successfully")
+    switch_to_popup(driver, wait, main_window)
+    time.sleep(2)
+    print("✅ Switched to vendor popup")
 
-    # Select a vendor
-    vendor_link = WebDriverWait(driver, 10).until(
+    # Select Vendor from Popup
+    vendor_link = wait.until(
         EC.element_to_be_clickable((By.ID, "dd_suppnameT1r5"))
     )
-    time.sleep(2)
+    time.sleep(3)
     vendor_link.click()
 
-    vendor_selected = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "//a[text()='OK']"))
-    )
-    time.sleep(1)
-    vendor_selected.click()
-    print("✅ Vendor selected successfully")
+    wait.until(EC.element_to_be_clickable((By.XPATH, "//a[text()='OK']"))).click()
+    print("✅ Vendor selected")
 
     # Switch back to main window
     driver.switch_to.window(main_window)
@@ -147,5 +141,52 @@ try:
     item_lookup_img.click()
     print("✅ Item Code lookup opened successfully")    
 
+
+    # Enter Item Code from Popup
+    switch_to_popup(driver, wait, main_window)
+    print("✅ Switched to Item Code popup successfully")
+
+    search_item_code = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.ID, "df_inputfilter"))
+    )   
+    search_item_code.send_keys("Acer")
+    print("✅ Item Code entered in popup search field")
+
+    filter_button = driver.find_element(By.CLASS_NAME, "button")
+    time.sleep(2)
+    filter_button.click()
+    print("✅ Filter applied in Item Code popup")
+
+    select_filter = driver.find_element(By.XPATH, "//img[contains(@src, 'imgs/sort_blue.gif')]")
+    time.sleep(2)
+    select_filter.click()
+    print("✅ Item Code filtered from popup")
+
+    try:
+        # Generate a random number between 1 and 54
+        random_row = random.randint(1, 54)
+        print(f"ℹ️ Randomly selected Acer item row: {random_row}")
+
+        # Construct the ID of the Acer item
+        acer_item_id = f"dd_itemdescT1r{random_row}"  
+        print(f"ℹ️ Acer item ID: {acer_item_id}")
+
+        # Locate and click the Acer item
+        acer_item = WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable((By.ID, acer_item_id))
+        )
+        acer_item.click()
+        print(f"✅ Random Acer item (ID: {acer_item_id}) selected successfully.")
+
+        driver.find_element(By.XPATH, "//a[text()='OK']").click()
+        print("✅ Item Code selection confirmed.")
+
+    except TimeoutException:
+        print("❌ Failed to select an Acer item. Check the IDs or page state.")
+
+
+
 finally:
     time.sleep(10)
+
+
