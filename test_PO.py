@@ -15,6 +15,7 @@ import sys
 import traceback
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -249,8 +250,8 @@ try:
         item_name_field = WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.ID, "df_u_polines_itemdescT1"))
         )
-        wait.until(lambda d: item_name_field.get_attribute("value") != "")
-        item_name = item_name_field.get_attribute("value")
+        wait.until(lambda d: item_name_field.get_attribute("value") != "" or item_name_field.text != "")
+        item_name = item_name_field.get_attribute("value") or item_name_field.text
         print(f"ℹ️ Item name detected: {item_name}")
 
 
@@ -318,19 +319,60 @@ try:
     except TimeoutException:
         print("❌ Failed to enter accounting details. Check the IDs or page state.")
 
+    # Capture PO details for later use
+    po_number = unique_invoice_number  # from your existing code
 
-    # Switch to Add button Frame
+    # Capture item info
+    item_data = {
+        "item_code": item_name,  # the item description
+        "quantity": random_quantity,
+        "unit_price": random_price,
+        "total_amount": random_quantity * random_price
+    }
+
+    po_data = {
+    "po_number": po_number,
+    "items": [item_data]
+    }
+
+    if os.path.exists("recent_po.json"):
+        with open("recent_po.json", "r") as f:
+            try:
+                existing_data = json.load(f)
+                # If it's a dict (single PO), wrap it in a list
+                if isinstance(existing_data, dict):
+                    all_pos = [existing_data]
+                elif isinstance(existing_data, list):
+                    all_pos = existing_data
+                else:
+                    all_pos = []
+            except json.JSONDecodeError:
+                all_pos = []  # empty if file is corrupted/empty
+    else:
+        all_pos = []
+
+    # Append the new PO
+    all_pos.append(po_data)
+
+    # Save all POs back to the file
+    with open("recent_po.json", "w") as f:
+        json.dump(all_pos, f, indent=4)
+
+    print("✅ PO details saved to recent_po.json (all POs preserved)")
+
     driver.switch_to.default_content()
     driver.switch_to.frame(1)
     print("✅ Switched to Add button frame successfully")
+    
     # Locate add button (fixed locator)
     try:
         # Locate add button
         add_button = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, "//a[text()='Add']"))
         )
-        time.sleep(1)
-        add_button.click()
+        driver.execute_script("arguments[0].click();", add_button)
+        time.sleep(3)
+
         print("✅ Add button clicked successfully to save the Purchase Order")
     except Exception as e:
         print("❌ Failed to click Add button. Check the locator or frame context.")
@@ -338,9 +380,8 @@ try:
 
     except TimeoutException:
         print("❌ Failed to click Add button due to timeout. Check the IDs or page state.")
-    except Exception as e:
-        print("❌ Test Failed")
-        print(e)
+
+    
 
 
 finally:
@@ -357,5 +398,4 @@ finally:
     except Exception:
         pass
 
-    # Always attempt to quit the browser
     
