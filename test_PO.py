@@ -275,7 +275,6 @@ try:
     except TimeoutException:
         print("❌ Failed to locate one of the fields. Check the IDs or page state.")
 
-
     try:
         # Enter details to logistics tab
         logistics_tab = WebDriverWait(driver, 10).until(
@@ -297,8 +296,7 @@ try:
         shipping_method.send_keys("Cargo")
 
     except TimeoutException:
-        print("❌ Failed to enter logistics details. Check the IDs or page state.")
-
+        print("❌ Failed to enter logistics det. Check the IDs or page state.")
 
     # Enter Accounting Details
     try:
@@ -313,8 +311,8 @@ try:
             EC.element_to_be_clickable((By.ID, "df_u_po_paymentsite"))
         )
         site_field.clear()
-        site_field.send_keys("site")
-        print("✅ Accounting details entered successfully")
+        site_field.send_keys("cubao")
+        print("✅ Accounting details entered succ essfully")
 
     except TimeoutException:
         print("❌ Failed to enter accounting details. Check the IDs or page state.")
@@ -374,15 +372,27 @@ try:
         time.sleep(3)
 
         print("✅ Add button clicked successfully to save the Purchase Order")
-    except Exception as e:
-        print("❌ Failed to click Add button. Check the locator or frame context.")
-        print(e)
-
-    except TimeoutException:
-        print("❌ Failed to click Add button due to timeout. Check the IDs or page state.")
-
     
+        driver.switch_to.default_content()
+        # Wait for footer frame to be available again
+        WebDriverWait(driver, 30).until(
+            EC.frame_to_be_available_and_switch_to_it(2)
+        )
 
+        error_text = WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.ID, "statusMsg"))
+        )
+
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        screenshot_name = f"screenshot_statusMsgImg_{timestamp}.png"
+        driver.save_screenshot(screenshot_name)
+
+        error_text = driver.find_element(By.ID, "statusMsg").text.strip()
+        print(f"📸 Screenshot taken when 'statusMsgImg' appeared: {screenshot_name}")
+    except TimeoutException:
+        print("⏳ 'statusMsgImg' did not appear within timeout")
+    except Exception as e:
+        print("⚠️ Failed to take screenshot when 'statusMsgImg' appeared:", e)
 
 finally:
     # If an exception occurred, save a screenshot for debugging

@@ -163,5 +163,258 @@
                 "total_amount": 0
             }
         ]
+    },
+    {
+        "po_number": "20260105155330",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE LITE AL15-51M-55R1 - TITANIUM GREY) NX.KRSSP.001, NOTEBOOK",
+                "quantity": 44,
+                "unit_price": 26967,
+                "total_amount": 1186548
+            }
+        ]
+    },
+    {
+        "po_number": "20260105162332",
+        "items": [
+            {
+                "item_code": "ACER (NITRO AN515-45-R2NV OBSIDIAN BLACK) NH.QBCSP.004, NOTEBOOK",
+                "quantity": 13,
+                "unit_price": 54194,
+                "total_amount": 704522
+            }
+        ]
+    },
+    {
+        "po_number": "20260105162739",
+        "items": [
+            {
+                "item_code": "ACER (PREDATOR STICKER) PL.PRSTI.001",
+                "quantity": 24,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260105162955",
+        "items": [
+            {
+                "item_code": "ACER (BACKPACK E-1620-P) LZ.BPKM6.B12",
+                "quantity": 49,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260106094453",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE LITE AL14-31P-C6PU - PURE SILVER) NX.KS9SP.001, NOTEBOOK",
+                "quantity": 47,
+                "unit_price": 23903,
+                "total_amount": 1123441
+            }
+        ]
+    },
+    {
+        "po_number": "20260106142701",
+        "items": [
+            {
+                "item_code": "ACER (PREDATOR STICKER) PL.PRSTI.001",
+                "quantity": 20,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260113081243",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A315-59-729S PURE SILVER) NX.K6TSP.006, NOTEBOOK",
+                "quantity": 33,
+                "unit_price": 32524,
+                "total_amount": 1073292
+            }
+        ]
+    },
+    {
+        "po_number": "20260113085253",
+        "items": [
+            {
+                "item_code": "ACER (EXTENDED 1-YEAR STANDARD WARRANTY) 5P.EW2YR.001 - NO PHYSICAL ITEM",
+                "quantity": 1,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260113085655",
+        "items": [
+            {
+                "item_code": "ACER (PREDATOR STICKER) PL.PRSTI.001",
+                "quantity": 20,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260113085842",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE LITE AL14-51M-57H1 PURE SILVER) NX.KTWSP.002, NOTEBOOK",
+                "quantity": 45,
+                "unit_price": 53109,
+                "total_amount": 2389905
+            }
+        ]
+    },
+    {
+        "po_number": "20260113090140",
+        "items": [
+            {
+                "item_code": "ACER (NITRO AN515-58-50YE OBSIDIAN BLACK) NH.QFHSP.002, NOTEBOOK",
+                "quantity": 10,
+                "unit_price": 34469,
+                "total_amount": 344690
+            }
+        ]
+    },
+    {
+        "po_number": "20260113090826",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A314-35-P0DC PURE SILVER) NX.A7SSP.00T, NOTEBOOK",
+                "quantity": 4,
+                "unit_price": 37416,
+                "total_amount": 149664
+            }
+        ]
+    },
+    {
+        "po_number": "20260113091428",
+        "items": [
+            {
+                "item_code": "ACER (NITRO ANV15-41-R7K3) NH.QPGSP.003, NOTEBOOK",
+                "quantity": 5,
+                "unit_price": 30483,
+                "total_amount": 152415
+            }
+        ]
+    },
+    {
+        "po_number": "20260113091755",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A15-51P-33C3 - STEEL GRAY) NX.KSCSP.001, NOTEBOOK",
+                "quantity": 6,
+                "unit_price": 49393,
+                "total_amount": 296358
+            }
+        ]
+    },
+    {
+        "po_number": "20260113092257",
+        "items": [
+            {
+                "item_code": "ACER (PREDATOR LANYARDS) PL.PRLAN.001",
+                "quantity": 49,
+                "unit_price": 0,
+                "total_amount": 0
+            }
+        ]
+    },
+    {
+        "po_number": "20260113092958",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A15-51P-33C3 - STEEL GRAY) NX.KSCSP.001, NOTEBOOK",
+                "quantity": 21,
+                "unit_price": 58075,
+                "total_amount": 1219575
+            }
+        ]
+    },
+    {
+        "po_number": "20260113093724",
+        "items": [
+            {
+                "item_code": "ACER (NITRO AN515-58-50YE OBSIDIAN BLACK) NH.QFHSP.002, NOTEBOOK",
+                "quantity": 30,
+                "unit_price": 43946,
+                "total_amount": 1318380
+            }
+        ]
+    },
+    {
+        "po_number": "20260113094450",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A715-76G-5188 CHARCOAL BLACK) NH.QMYSP.001, NOTEBOOK",
+                "quantity": 42,
+                "unit_price": 59967,
+                "total_amount": 2518614
+            }
+        ]
+    },
+    {
+        "po_number": "20260113100035",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE LITE AL14-51M-57H1 PURE SILVER) NX.KTWSP.002, NOTEBOOK",
+                "quantity": 15,
+                "unit_price": 31894,
+                "total_amount": 478410
+            }
+        ]
+    },
+    {
+        "po_number": "20260113113642",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A315-59-726B - PURE SILVER) NX.K6TSP.00G, NOTEBOOK",
+                "quantity": 29,
+                "unit_price": 43201,
+                "total_amount": 1252829
+            }
+        ]
+    },
+    {
+        "po_number": "20260113131652",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A314-36P-C7HC PURE SILVER) NX.KDJSP.005, NOTEBOOK",
+                "quantity": 9,
+                "unit_price": 57932,
+                "total_amount": 521388
+            }
+        ]
+    },
+    {
+        "po_number": "20260113154301",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A315-59-726B - PURE SILVER) NX.K6TSP.00G, NOTEBOOK",
+                "quantity": 37,
+                "unit_price": 27262,
+                "total_amount": 1008694
+            }
+        ]
+    },
+    {
+        "po_number": "20260113154713",
+        "items": [
+            {
+                "item_code": "ACER (ASPIRE A315-510P-38RD PURE SILVER) NX.KDHSP.002, NOTEBOOK",
+                "quantity": 21,
+                "unit_price": 58179,
+                "total_amount": 1221759
+            }
+        ]
     }
 ]
