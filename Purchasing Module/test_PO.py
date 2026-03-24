@@ -13,6 +13,7 @@ import random
 import time
 from login import login
 from po import PurchaseOrder
+from wrr import WarehouseReceiving
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,6 +34,7 @@ wait = WebDriverWait(driver, 20)
 main_window = driver.current_window_handle
 
 try:
+    # Create Purchase Order
     po = PurchaseOrder(driver, wait)
     po.login_and_prepare(login, URL, USERNAME, PASSWORD, DATABASE)
     po.select_purchasing_module()
@@ -46,14 +48,21 @@ try:
     po.enter_accounting()
     po.add_purchase_order()
     print(f"✅ PO created with invoice number: {invoice_number}, item: {item_name}, quantity: {quantity}, price: {price}")
+    
+    # Continue with Warehouse Receiving
+    wrr = WarehouseReceiving(driver, wait)
+    wrr.process_receiving(invoice_number)
+    print(f"✅ WRR completed for invoice: {invoice_number}")
 except Exception as e:
     import traceback
     print("❌ An error occurred:")
     traceback.print_exc()
     # Optionally, save a screenshot for debugging
     try:
-        timestamp = time.strftime("%Y%m%d%H%M%S")
-        screenshot_name = f"screenshot_failure_{timestamp}.png"
+        screenshots_dir = os.path.join(os.path.dirname(__file__), "screenshots")
+        os.makedirs(screenshots_dir, exist_ok=True)
+        timestamp = time.strftime("%Y%m%d%H%M")
+        screenshot_name = os.path.join(screenshots_dir, f"screenshot_failure_{timestamp}.png")
         driver.save_screenshot(screenshot_name)
         print(f"📸 Screenshot saved: {screenshot_name}")
     except Exception as ex:
@@ -61,4 +70,4 @@ except Exception as e:
 finally:
     driver.quit()
 
-    
+        

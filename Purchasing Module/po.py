@@ -100,6 +100,21 @@ class PurchaseOrder:
 
         click_filter = self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "button")))
         click_filter.click()
+        click_sort = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//img[@src='imgs/sort_blue.gif']")))
+        click_sort.click()
+
+        random_row = random.randint(1,54)
+        print(f"Randomly selected item {random_row}")
+        item_id = f"dd_itemdescT1r{random_row}"
+        print(f"ℹ️ Acer item ID: {item_id}")
+        select_item = self.wait.until(EC.element_to_be_clickable((By.ID, item_id)))
+        select_item.click()
+        print(f"✅ Random Acer item (ID: {item_id}) selected successfully.")
+        click_itemOK = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[text()='OK']")))
+        click_itemOK.click()
+        print("Item successfully selected")
+
+        time.sleep(3)
         print("Successfully selected an Item")
 
         # Switch back to main window
